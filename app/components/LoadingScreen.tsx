@@ -3,12 +3,18 @@ import { useEffect, useRef, useState } from 'react';
 export default function LoadingScreen({ onDone }: { onDone: () => void }) {
   const [progress,setProgress]=useState(0);
   const [phase,setPhase]=useState(0);
-  const rafRef=useRef<ReturnType<typeof setTimeout>>();
+  const rafRef=useRef<number>(0);
   useEffect(()=>{
     let p=0;
-    const run=()=>{p+=Math.random()*2.2+0.5;if(p>=100){p=100;setProgress(100);setTimeout(onDone,700);return;}setProgress(Math.floor(p));setPhase(p<33?0:p<66?1:2);rafRef.current=setTimeout(run,28);};
-    rafRef.current=setTimeout(run,80);
-    return()=>clearTimeout(rafRef.current);
+    const run=()=>{
+      p+=Math.random()*2.2+0.5;
+      if(p>=100){p=100;setProgress(100);setTimeout(onDone,700);return;}
+      setProgress(Math.floor(p));
+      setPhase(p<33?0:p<66?1:2);
+      rafRef.current=window.setTimeout(run,28);
+    };
+    rafRef.current=window.setTimeout(run,80);
+    return()=>window.clearTimeout(rafRef.current);
   },[onDone]);
   const labels=['Initializing...','Loading assets...','Almost ready...'];
   return(
