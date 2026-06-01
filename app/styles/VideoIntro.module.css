@@ -1,0 +1,123 @@
+.hero{position:relative;width:100%;height:100svh;overflow:hidden;background:#000;display:flex;align-items:center;justify-content:center;cursor:none}
+.ambientBg{position:absolute;inset:-5%;width:110%;height:110%;object-fit:cover;filter:blur(40px) brightness(0.3) saturate(1.5);transform:scale(1.1);z-index:1;pointer-events:none}
+.videoWrap{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;z-index:2}
+.mainVideo{width:100%;height:100%;object-fit:cover;object-position:center top}
+.gradientTop{position:absolute;top:0;left:0;right:0;height:45%;background:linear-gradient(to bottom,rgba(0,0,0,0.88) 0%,rgba(0,0,0,0.35) 60%,transparent 100%);z-index:4;pointer-events:none}
+.gradientBottom{position:absolute;bottom:0;left:0;right:0;height:70%;background:linear-gradient(to top,rgba(0,0,0,0.97) 0%,rgba(0,0,0,0.75) 35%,rgba(0,0,0,0.25) 65%,transparent 100%);z-index:4;pointer-events:none}
+.gradientSides{position:absolute;inset:0;background:radial-gradient(ellipse 80% 100% at 50% 50%,transparent 40%,rgba(0,0,0,0.6) 100%);z-index:4;pointer-events:none}
+.content{position:absolute;inset:0;z-index:5;display:flex;flex-direction:column;justify-content:flex-end;padding:clamp(2rem,6vw,5rem) clamp(1.5rem,7vw,7rem);padding-bottom:clamp(5rem,10vh,8rem);pointer-events:none}
+.tagline{font-family:'Courier New',monospace;font-size:clamp(0.55rem,1vw,0.75rem);letter-spacing:0.38em;text-transform:uppercase;color:rgba(255,165,60,0.85);margin-bottom:clamp(0.8rem,2vh,1.4rem);opacity:0;transform:translateY(20px)}
+.nameWrap{display:flex;flex-direction:column;margin-bottom:clamp(1rem,2.5vh,2rem)}
+.firstName{font-family:'Georgia',serif;font-size:clamp(3.8rem,11vw,11rem);font-weight:700;line-height:0.88;letter-spacing:-0.03em;color:#fff;opacity:0;transform:translateY(40px)}
+.lastName{font-family:'Georgia',serif;font-size:clamp(3.8rem,11vw,11rem);font-weight:700;line-height:0.88;letter-spacing:-0.03em;color:transparent;-webkit-text-stroke:1.5px rgba(255,255,255,0.55);opacity:0;transform:translateY(40px)}
+.roleWrap{display:flex;flex-direction:column;opacity:0;transform:translateY(20px)}
+.role{font-family:'Courier New',monospace;font-size:clamp(0.78rem,1.6vw,1rem);color:rgba(255,255,255,0.75);letter-spacing:0.1em}
+.typewriter{color:rgba(255,165,60,0.95)}
+.cursor{color:rgba(255,165,60,0.9);animation:blink 1s step-end infinite;margin-left:2px}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:0}}
+.controls{position:absolute;top:clamp(1.2rem,3vh,2.5rem);right:clamp(1.2rem,3vw,2.5rem);z-index:8;display:flex;gap:0.75rem;opacity:0;transform:translateY(-10px)}
+.glassBtn{display:flex;align-items:center;justify-content:center;width:44px;height:44px;border-radius:50%;background:rgba(255,255,255,0.08);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border:1px solid rgba(255,255,255,0.15);cursor:none;color:rgba(255,255,255,0.9);transition:background 0.3s,border-color 0.3s,transform 0.2s}
+.glassBtn:hover{background:rgba(255,165,60,0.2);border-color:rgba(255,165,60,0.55);transform:scale(1.08)}
+.glassBtn svg{width:16px;height:16px}
+.soundHint{position:absolute;bottom:clamp(5.5rem,12vh,9rem);left:50%;transform:translateX(-50%);z-index:8;display:flex;align-items:center;gap:0.5rem;padding:0.5rem 1.1rem;background:rgba(0,0,0,0.35);backdrop-filter:blur(12px);border:1px solid rgba(255,255,255,0.12);border-radius:100px;font-family:'Courier New',monospace;font-size:0.65rem;letter-spacing:0.22em;text-transform:uppercase;color:rgba(255,255,255,0.65);pointer-events:none;white-space:nowrap;transition:opacity 0.9s ease}
+.soundHint.hidden{opacity:0}
+.soundDot{width:6px;height:6px;border-radius:50%;background:rgba(255,165,60,0.9);animation:soundPulse 1.8s ease-in-out infinite}
+@keyframes soundPulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:0.3;transform:scale(0.6)}}
+.scrollIndicator{position:absolute;bottom:clamp(1.5rem,4vh,2.5rem);left:50%;transform:translateX(-50%);z-index:8;display:flex;flex-direction:column;align-items:center;gap:0.5rem;cursor:pointer;opacity:0;pointer-events:all}
+.scrollLabel{font-family:'Courier New',monospace;font-size:0.55rem;letter-spacing:0.32em;text-transform:uppercase;color:rgba(255,255,255,0.35)}
+.scrollTrack{width:1px;height:52px;background:rgba(255,255,255,0.1);position:relative;overflow:hidden}
+.scrollLine{position:absolute;top:0;left:0;width:100%;height:50%;background:rgba(255,165,60,0.7);animation:scrollDrop 2s ease-in-out infinite}
+@keyframes scrollDrop{0%{transform:translateY(-100%);opacity:0}20%{opacity:1}80%{opacity:1}100%{transform:translateY(200%);opacity:0}}
+.veil{position:absolute;inset:0;background:#000;z-index:20;pointer-events:none}
+.aboutSection{min-height:100vh;background:#060606;display:flex;align-items:center;padding:clamp(4rem,10vh,8rem) clamp(1.5rem,7vw,7rem);border-top:1px solid rgba(255,255,255,0.04)}
+.aboutInner{max-width:1200px;margin:0 auto;width:100%;display:grid;grid-template-columns:1.4fr 1fr;gap:clamp(3rem,6vw,6rem);align-items:start}
+.sectionTag{font-family:'Courier New',monospace;font-size:0.68rem;letter-spacing:0.38em;text-transform:uppercase;color:rgba(255,165,60,0.8);display:block;margin-bottom:1.2rem}
+.aboutTitle{font-family:'Georgia',serif;font-size:clamp(2.4rem,5vw,4.5rem);font-weight:700;line-height:1.0;color:#fff;margin-bottom:2rem}
+.aboutDivider{width:48px;height:2px;background:rgba(255,165,60,0.65);margin-bottom:2rem}
+.aboutText{font-family:'Georgia',serif;font-size:clamp(0.88rem,1.3vw,1.02rem);color:rgba(255,255,255,0.55);line-height:1.9;margin-bottom:1.2rem}
+.highlight{color:rgba(255,165,60,0.9);font-style:italic}
+.skillsWrap{margin-top:2.5rem}
+.skillsLabel{font-family:'Courier New',monospace;font-size:0.62rem;letter-spacing:0.3em;text-transform:uppercase;color:rgba(255,255,255,0.28);display:block;margin-bottom:1.4rem}
+.skillRow{margin-bottom:1rem;padding:0.5rem 0.6rem;border-radius:8px;transition:background 0.3s}
+.skillRow:hover{background:rgba(255,165,60,0.05)}
+.skillRow:hover .skillName{color:rgba(255,165,60,0.9)}
+.skillRow:hover .skillBar{box-shadow:0 0 12px rgba(255,165,60,0.5)}
+.skillMeta{display:flex;justify-content:space-between;margin-bottom:0.4rem}
+.skillName{font-family:'Courier New',monospace;font-size:0.68rem;letter-spacing:0.1em;color:rgba(255,255,255,0.62);transition:color 0.3s}
+.skillPct{font-family:'Courier New',monospace;font-size:0.65rem;color:rgba(255,165,60,0.7)}
+.skillTrack{height:2px;background:rgba(255,255,255,0.07);border-radius:2px;overflow:hidden}
+.skillBar{height:100%;background:linear-gradient(90deg,rgba(255,120,30,0.9),rgba(255,200,80,0.8));border-radius:2px;transition:width 1.2s cubic-bezier(0.22,1,0.36,1),box-shadow 0.3s;position:relative;overflow:hidden}
+.skillBar::after{content:'';position:absolute;top:0;left:-100%;width:60%;height:100%;background:linear-gradient(90deg,transparent,rgba(255,255,255,0.5),transparent);animation:shine 2.5s ease-in-out infinite}
+@keyframes shine{0%{left:-100%}100%{left:200%}}
+.aboutRight{display:flex;flex-direction:column;gap:1.2rem;padding-top:5rem}
+.counterCard{background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.06);border-radius:14px;padding:1.5rem 2rem;transition:border-color 0.3s,background 0.3s,transform 0.3s}
+.counterCard:hover{border-color:rgba(255,165,60,0.25);background:rgba(255,165,60,0.04);transform:translateX(6px)}
+.counterNum{display:block;font-family:'Georgia',serif;font-size:clamp(1.8rem,3vw,2.5rem);font-weight:700;color:#fff;letter-spacing:-0.02em}
+.counterLabel{display:block;font-family:'Courier New',monospace;font-size:0.62rem;letter-spacing:0.22em;text-transform:uppercase;color:rgba(255,255,255,0.35);margin-top:0.3rem}
+.timelineSection{background:#040404;padding:clamp(4rem,10vh,8rem) clamp(1.5rem,7vw,7rem);border-top:1px solid rgba(255,255,255,0.04)}
+.timelineInner{max-width:1200px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:clamp(3rem,6vw,5rem)}
+.timelineCol{display:flex;flex-direction:column}
+.timelineTitle{font-family:'Georgia',serif;font-size:clamp(2rem,4vw,3.5rem);font-weight:700;color:#fff;margin-bottom:2.5rem;letter-spacing:-0.02em}
+.timelineCard{position:relative;padding:1.6rem 1.8rem 1.6rem 2.2rem;border-left:1px solid rgba(255,255,255,0.08);margin-bottom:1.5rem;transition:border-color 0.3s}
+.timelineCard:hover{border-color:rgba(255,165,60,0.4)}
+.timelineDot{position:absolute;left:-5px;top:1.8rem;width:8px;height:8px;border-radius:50%;background:rgba(255,165,60,0.8);box-shadow:0 0 10px rgba(255,165,60,0.5)}
+.timelineYear{font-family:'Courier New',monospace;font-size:0.62rem;letter-spacing:0.2em;text-transform:uppercase;color:rgba(255,165,60,0.7);margin-bottom:0.5rem}
+.timelineRole{font-family:'Georgia',serif;font-size:clamp(1rem,1.8vw,1.3rem);font-weight:700;color:#fff;margin-bottom:0.3rem}
+.timelineOrg{font-family:'Courier New',monospace;font-size:0.68rem;color:rgba(255,255,255,0.45);letter-spacing:0.08em;margin-bottom:0.8rem}
+.timelineDesc{font-family:'Georgia',serif;font-size:0.88rem;color:rgba(255,255,255,0.5);line-height:1.75;margin-bottom:0.8rem}
+.tagRow{display:flex;flex-wrap:wrap;gap:0.35rem}
+.tag{font-family:'Courier New',monospace;font-size:0.58rem;letter-spacing:0.12em;text-transform:uppercase;color:rgba(255,165,60,0.75);border:1px solid rgba(255,165,60,0.2);padding:0.2rem 0.6rem;border-radius:100px}
+.achieveCard{display:flex;gap:1rem;padding:1.2rem 1.4rem;background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.06);border-radius:12px;margin-bottom:1rem;transition:border-color 0.3s,transform 0.3s}
+.achieveCard:hover{border-color:rgba(255,165,60,0.3);transform:translateX(4px)}
+.achieveIcon{font-size:1.5rem;flex-shrink:0;padding-top:0.1rem}
+.achieveTitle{font-family:'Georgia',serif;font-size:0.98rem;font-weight:700;color:#fff;margin-bottom:0.2rem}
+.achieveOrg{font-family:'Courier New',monospace;font-size:0.62rem;color:rgba(255,165,60,0.7);letter-spacing:0.1em;margin-bottom:0.4rem}
+.achieveDesc{font-family:'Georgia',serif;font-size:0.82rem;color:rgba(255,255,255,0.48);line-height:1.65}
+.certSection{background:#060606;padding:clamp(4rem,10vh,8rem) clamp(1.5rem,7vw,7rem);border-top:1px solid rgba(255,255,255,0.04)}
+.certInner{max-width:1200px;margin:0 auto}
+.certTitle{font-family:'Georgia',serif;font-size:clamp(2.4rem,5vw,4.5rem);font-weight:700;color:#fff;margin-bottom:clamp(2rem,4vh,3.5rem);letter-spacing:-0.02em}
+.certGrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:1.2rem}
+.certCard{border:1px solid rgba(255,255,255,0.07);border-radius:14px;padding:1.4rem 1.6rem;will-change:transform;transition:transform 0.18s ease,box-shadow 0.18s ease,border-color 0.3s}
+.certCard:hover{border-color:rgba(255,165,60,0.35)!important;transform:translateY(-4px)}
+.certOrg{font-family:'Courier New',monospace;font-size:0.6rem;letter-spacing:0.2em;text-transform:uppercase;color:rgba(255,165,60,0.7);margin-bottom:0.5rem}
+.certName{font-family:'Georgia',serif;font-size:0.95rem;font-weight:700;color:#fff;margin-bottom:0.4rem;line-height:1.4}
+.certDetail{font-family:'Courier New',monospace;font-size:0.62rem;color:rgba(255,255,255,0.4);margin-bottom:0.5rem}
+.certDate{font-family:'Courier New',monospace;font-size:0.6rem;letter-spacing:0.15em;color:rgba(255,255,255,0.3)}
+.projectsSection{min-height:70vh;background:#040404;display:flex;align-items:center;padding:clamp(4rem,10vh,8rem) clamp(1.5rem,7vw,7rem);border-top:1px solid rgba(255,255,255,0.04)}
+.projectsInner{max-width:1200px;margin:0 auto;width:100%}
+.projectsTitle{font-family:'Georgia',serif;font-size:clamp(2.4rem,5vw,4.5rem);font-weight:700;color:#fff;margin-bottom:clamp(2.5rem,5vh,4rem);letter-spacing:-0.02em}
+.projectsGrid{display:grid;grid-template-columns:1fr 1fr;gap:1.5rem}
+.projectCard{background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.07);border-radius:18px;padding:clamp(1.5rem,3vw,2.5rem);display:flex;gap:1.5rem;position:relative;overflow:hidden;will-change:transform}
+.projectCard:hover{border-color:rgba(255,165,60,0.35)}
+.projectNum{font-family:'Courier New',monospace;font-size:0.68rem;color:rgba(255,165,60,0.5);letter-spacing:0.1em;min-width:28px;padding-top:0.2rem}
+.projectContent{flex:1}
+.projectName{font-family:'Georgia',serif;font-size:clamp(1.2rem,2vw,1.6rem);font-weight:700;color:#fff;margin-bottom:0.9rem}
+.projectDesc{font-family:'Georgia',serif;font-size:clamp(0.82rem,1.2vw,0.94rem);color:rgba(255,255,255,0.48);line-height:1.8;margin-bottom:1.3rem}
+.projectTags{display:flex;flex-wrap:wrap;gap:0.4rem}
+.projectTags span{font-family:'Courier New',monospace;font-size:0.58rem;letter-spacing:0.15em;text-transform:uppercase;color:rgba(255,165,60,0.75);border:1px solid rgba(255,165,60,0.2);padding:0.25rem 0.75rem;border-radius:100px}
+.contactSection{min-height:60vh;background:#060606;display:flex;align-items:center;justify-content:center;text-align:center;padding:clamp(4rem,10vh,8rem) clamp(1.5rem,7vw,7rem);border-top:1px solid rgba(255,255,255,0.04)}
+.contactInner{max-width:620px;width:100%}
+.contactTitle{font-family:'Georgia',serif;font-size:clamp(2.5rem,6vw,5rem);font-weight:700;color:#fff;margin-bottom:1rem;letter-spacing:-0.03em}
+.contactSub{font-family:'Courier New',monospace;font-size:0.72rem;letter-spacing:0.22em;text-transform:uppercase;color:rgba(255,255,255,0.32);margin-bottom:3rem}
+.contactLinks{display:flex;gap:1rem;justify-content:center;flex-wrap:wrap;margin-bottom:3rem}
+.contactBtn{font-family:'Courier New',monospace;font-size:0.72rem;letter-spacing:0.2em;text-transform:uppercase;color:#000;background:rgba(255,165,60,0.92);padding:0.9rem 2rem;border-radius:100px;text-decoration:none;transition:background 0.3s,transform 0.2s}
+.contactBtn:hover{background:rgba(255,165,60,1);transform:translateY(-3px)}
+.contactBtnOutline{font-family:'Courier New',monospace;font-size:0.72rem;letter-spacing:0.2em;text-transform:uppercase;color:rgba(255,255,255,0.65);border:1px solid rgba(255,255,255,0.18);padding:0.9rem 2rem;border-radius:100px;text-decoration:none;transition:border-color 0.3s,color 0.3s,transform 0.2s}
+.contactBtnOutline:hover{border-color:rgba(255,165,60,0.5);color:rgba(255,165,60,0.9);transform:translateY(-3px)}
+.contactFooter{font-family:'Courier New',monospace;font-size:0.58rem;letter-spacing:0.25em;text-transform:uppercase;color:rgba(255,255,255,0.18)}
+.contactForm{width:100%;margin-top:2rem;display:flex;flex-direction:column;gap:1rem}
+.formRow{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
+.formInput{background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.1);border-radius:10px;padding:0.9rem 1.2rem;color:#fff;font-family:'Courier New',monospace;font-size:0.75rem;outline:none;transition:border-color 0.3s;width:100%}
+.formInput:focus{border-color:rgba(255,165,60,0.5);background:rgba(255,165,60,0.04)}
+.formInput::placeholder{color:rgba(255,255,255,0.25)}
+.formTextarea{background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.1);border-radius:10px;padding:0.9rem 1.2rem;color:#fff;font-family:'Courier New',monospace;font-size:0.75rem;outline:none;transition:border-color 0.3s;resize:vertical;width:100%}
+.formTextarea:focus{border-color:rgba(255,165,60,0.5)}
+.formTextarea::placeholder{color:rgba(255,255,255,0.25)}
+.formBtn{font-family:'Courier New',monospace;font-size:0.72rem;letter-spacing:0.2em;text-transform:uppercase;color:#000;background:rgba(255,165,60,0.92);padding:1rem 2rem;border-radius:100px;border:none;cursor:pointer;transition:background 0.3s,transform 0.2s;align-self:center;margin-top:0.5rem}
+.formBtn:hover:not(:disabled){background:rgba(255,165,60,1);transform:translateY(-2px)}
+.formBtn:disabled{opacity:0.6;cursor:not-allowed}
+.statCard{background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.06);border-radius:14px;padding:1.5rem 2rem;transition:border-color 0.3s,background 0.3s,transform 0.3s}
+.statCard:hover{border-color:rgba(255,165,60,0.25);background:rgba(255,165,60,0.04);transform:translateX(6px)}
+.statNum{display:block;font-family:'Georgia',serif;font-size:clamp(1.4rem,2.5vw,2rem);font-weight:700;color:#fff}
+.statLabel{display:block;font-family:'Courier New',monospace;font-size:0.62rem;letter-spacing:0.22em;text-transform:uppercase;color:rgba(255,255,255,0.35);margin-top:0.3rem}
+@media(max-width:768px){.aboutInner,.timelineInner{grid-template-columns:1fr}.aboutRight{padding-top:0;flex-direction:row;flex-wrap:wrap}.counterCard{flex:1;min-width:130px}.projectsGrid{grid-template-columns:1fr}.certGrid{grid-template-columns:1fr 1fr}.hero{cursor:auto}.glassBtn{cursor:pointer}.formRow{grid-template-columns:1fr}}

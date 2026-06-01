@@ -1,0 +1,239 @@
+'use client';
+
+import { useEffect, useRef, useState, useCallback } from 'react';
+import dynamic from 'next/dynamic';
+import styles from '../styles/VideoIntro.module.css';
+
+const CinematicLayer = dynamic(() => import('./CinematicLayer'), { ssr: false });
+
+// SVG Icons
+const IconPlay = () => (
+  <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+    <path d="M8 5v14l11-7z" />
+  </svg>
+);
+const IconPause = () => (
+  <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+    <path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z" />
+  </svg>
+);
+const IconMute = () => (
+  <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+    <path d="M16.5 12A4.5 4.5 0 0014 7.97v2.21l2.45 2.45c.03-.2.05-.41.05-.63zm2.5 0c0 .94-.2 1.82-.54 2.64l1.51 1.51C20.63 14.91 21 13.5 21 12c0-4.28-2.99-7.86-7-8.77v2.06c2.89.86 5 3.54 5 6.71zM4.27 3L3 4.27 7.73 9H3v6h4l5 5v-6.73l4.25 4.25c-.67.52-1.42.93-2.25 1.18v2.06c1.38-.31 2.63-.95 3.69-1.81L19.73 21 21 19.73l-9-9L4.27 3zM12 4L9.91 6.09 12 8.18V4z" />
+  </svg>
+);
+const IconUnmute = () => (
+  <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+    <path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3A4.5 4.5 0 0014 7.97v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z" />
+  </svg>
+);
+
+export default function VideoIntro() {
+  const mainVideoRef   = useRef<HTMLVideoElement>(null);
+  const ambientRef     = useRef<HTMLVideoElement>(null);
+  const veilRef        = useRef<HTMLDivElement>(null);
+  const taglineRef     = useRef<HTMLDivElement>(null);
+  const firstNameRef   = useRef<HTMLDivElement>(null);
+  const lastNameRef    = useRef<HTMLDivElement>(null);
+  const roleRef        = useRef<HTMLDivElement>(null);
+  const controlsRef    = useRef<HTMLDivElement>(null);
+  const scrollRef      = useRef<HTMLDivElement>(null);
+  const nextSectionRef = useRef<HTMLDivElement>(null);
+
+  const [isPlaying, setIsPlaying]     = useState(true);
+  const [isMuted, setIsMuted]         = useState(true);
+  const [showHint, setShowHint]       = useState(true);
+
+  // GSAP entrance — loaded lazily to keep SSR clean
+  useEffect(() => {
+    let gsapModule: typeof import('gsap').gsap | null = null;
+
+    const runIntro = async () => {
+      const { gsap } = await import('gsap');
+      gsapModule = gsap;
+
+      const veil      = veilRef.current;
+      const tagline   = taglineRef.current;
+      const firstName = firstNameRef.current;
+      const lastName  = lastNameRef.current;
+      const role      = roleRef.current;
+      const controls  = controlsRef.current;
+      const scroll    = scrollRef.current;
+
+      if (!veil) return;
+
+      const tl = gsap.timeline({ defaults: { ease: 'power3.out' } });
+
+      // 1. Lift veil
+      tl.to(veil, { opacity: 0, duration: 1.6, ease: 'power2.inOut' })
+        .addLabel('content', '-=0.6');
+
+      // 2. Tagline
+      if (tagline)
+        tl.to(tagline, { opacity: 1, y: 0, duration: 0.9 }, 'content');
+
+      // 3. First name
+      if (firstName)
+        tl.to(firstName, { opacity: 1, y: 0, duration: 1.0 }, 'content+=0.15');
+
+      // 4. Last name
+      if (lastName)
+        tl.to(lastName, { opacity: 1, y: 0, duration: 1.0 }, 'content+=0.3');
+
+      // 5. Role
+      if (role)
+        tl.to(role, { opacity: 1, y: 0, duration: 0.85 }, 'content+=0.45');
+
+      // 6. Controls
+      if (controls)
+        tl.to(controls, { opacity: 1, y: 0, duration: 0.7 }, 'content+=0.5');
+
+      // 7. Scroll indicator
+      if (scroll)
+        tl.to(scroll, { opacity: 1, duration: 0.8 }, 'content+=0.85');
+    };
+
+    runIntro();
+    return () => { /* gsap timelines clean themselves up */ };
+  }, []);
+
+  // Auto-hide sound hint
+  useEffect(() => {
+    const timer = setTimeout(() => setShowHint(false), 4500);
+    return () => clearTimeout(timer);
+  }, []);
+
+  const togglePlay = useCallback(() => {
+    const v = mainVideoRef.current;
+    const a = ambientRef.current;
+    if (!v) return;
+    if (v.paused) {
+      v.play(); a?.play();
+      setIsPlaying(true);
+    } else {
+      v.pause(); a?.pause();
+      setIsPlaying(false);
+    }
+  }, []);
+
+  const toggleMute = useCallback(() => {
+    const v = mainVideoRef.current;
+    if (!v) return;
+    v.muted = !v.muted;
+    setIsMuted(v.muted);
+    setShowHint(false);
+  }, []);
+
+  const scrollToNext = useCallback(() => {
+    nextSectionRef.current?.scrollIntoView({ behavior: 'smooth' });
+  }, []);
+
+  return (
+    <>
+      <section className={styles.hero}>
+        {/* ── Veil ── */}
+        <div ref={veilRef} className={styles.veil} />
+
+        {/* ── Ambient blurred background ── */}
+        <video
+          ref={ambientRef}
+          className={styles.ambientBg}
+          src="/hero.mp4"
+          autoPlay
+          loop
+          muted
+          playsInline
+        />
+
+        {/* ── Main foreground video ── */}
+        <div className={styles.videoWrap}>
+          <video
+            ref={mainVideoRef}
+            className={styles.mainVideo}
+            src="/hero.mp4"
+            autoPlay
+            loop
+            muted
+            playsInline
+          />
+        </div>
+
+        {/* ── Cinematic gradients ── */}
+        <div className={styles.gradientTop}    aria-hidden />
+        <div className={styles.gradientBottom} aria-hidden />
+        <div className={styles.gradientSides}  aria-hidden />
+
+        {/* ── Three.js particle layer ── */}
+        <CinematicLayer />
+
+        {/* ── Controls ── */}
+        <div ref={controlsRef} className={styles.controls}>
+          <button
+            className={styles.glassBtn}
+            onClick={togglePlay}
+            aria-label={isPlaying ? 'Pause video' : 'Play video'}
+            title={isPlaying ? 'Pause' : 'Play'}
+          >
+            {isPlaying ? <IconPause /> : <IconPlay />}
+          </button>
+          <button
+            className={styles.glassBtn}
+            onClick={toggleMute}
+            aria-label={isMuted ? 'Unmute' : 'Mute'}
+            title={isMuted ? 'Unmute' : 'Mute'}
+          >
+            {isMuted ? <IconMute /> : <IconUnmute />}
+          </button>
+        </div>
+
+        {/* ── Landing copy ── */}
+        <div className={styles.content}>
+          <div ref={taglineRef} className={styles.tagline}>
+            B.Tech CSE · Medi-Caps University
+          </div>
+
+          <div className={styles.nameWrap}>
+            <div ref={firstNameRef} className={styles.firstName}>
+              Yash Singh
+            </div>
+            <div ref={lastNameRef} className={styles.lastName}>
+              Gehlot
+            </div>
+          </div>
+
+          <div ref={roleRef} className={styles.roleWrap}>
+            <span className={styles.role}>
+              Software Developer
+              <span className={styles.roleAccent}>·</span>
+              AI Enthusiast
+              <span className={styles.roleAccent}>·</span>
+              Cloud Computing
+            </span>
+            <span className={styles.role} style={{ opacity: 0.5, fontSize: '0.82em' }}>
+              Crafting immersive digital experiences where code meets cinema
+            </span>
+          </div>
+        </div>
+
+        {/* ── Sound hint ── */}
+        <div className={`${styles.soundHint} ${!showHint ? styles.hidden : ''}`} aria-hidden>
+          <span className={styles.soundDot} />
+          Tap for sound
+        </div>
+
+        {/* ── Scroll indicator ── */}
+        <div ref={scrollRef} className={styles.scrollIndicator} onClick={scrollToNext} role="button" aria-label="Scroll down">
+          <span className={styles.scrollLabel}>Scroll</span>
+          <div className={styles.scrollTrack}>
+            <div className={styles.scrollLine} />
+          </div>
+        </div>
+      </section>
+
+      {/* ── Next section ── */}
+      <div ref={nextSectionRef} className={styles.nextSection}>
+        ✦ &nbsp; Work &nbsp; ✦
+      </div>
+    </>
+  );
+}
